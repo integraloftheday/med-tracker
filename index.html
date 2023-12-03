@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jule's Meds</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyI+5T9P1BqD6Y4aZl3m9nxvoGgF5RKO" crossorigin="anonymous">
+
+    <script src="slots.js"></script>
+    <!-- particles.js CSS -->
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Roboto', sans-serif; /* Use the default Bootstrap font */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #fce4ec; /* Soothing light pink background color */
+        }
+
+        #particles-js {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+        }
+
+        .container {
+            z-index: 1;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.7); /* White box background color with transparency */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #e91e63; /* Pink title color */
+        }
+
+        .question {
+            color: #3f51b5; /* Indigo question color */
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .btn-submit {
+            background-color: #2196f3; /* Blue button color */
+            color: #fff; /* White text color */
+            font-size: 28px;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #1565c0; /* Darker blue on hover */
+        }
+        
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+a{
+	color: #283593;
+	text-decoration: none;
+}
+h3{
+	margin-top: 12px;
+}
+*{
+	margin:0px;
+}
+
+
+main{
+	border-radius: 5px;
+	background-color: #EF5350;
+	margin-top: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-left: calc((100% - 580px) / 2);
+}
+section#status{
+	margin-bottom: 25px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border-radius: 5px;
+	text-align: center;
+	background-color: #37474F;
+	color: #FFFFFF;
+	font-size: 25px;
+	font-family: 'Roboto Mono', monospace;
+}
+section#Slots{
+	border-radius: 15px;
+	background-color: #FAFAFA;
+}
+section#Gira{
+	margin-top: 25px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border-radius: 5px;
+	text-align: center;
+	background-color: #AB47BC;
+	color: #FFFFFF;
+	font-size: 25px;
+}
+section#Gira:hover{
+	background-color: #BA68C8;
+}
+section#options{
+	margin-top: 20px;
+	padding-top: 5px;
+	border-radius: 5px;
+	background-color: #C62828;
+	color: #FFFFFF;
+}
+.option{
+	padding-left: 5px;
+}
+section#info{
+	background-color: #616161;
+	padding-left: 12px;
+	padding-bottom: 12px;
+	border-radius: 5px;
+	overflow: hidden;
+	animation-duration: 1s;
+	color: #BDBDBD;
+	margin-top: 50px;
+	margin-left: 30%;
+	margin-right: 30%;
+	display: none;
+}
+#slot1, #slot2, #slot3{
+	display: inline-block;
+	margin-top: 5px;
+	margin-left: 15px;
+	margin-right: 15px;
+	background-size: 50px;
+	width: 50px;
+	height: 50px;
+}
+.a1{
+	background-image: url("res/tiles/seven.png");
+}
+.a2{
+	background-image: url("res/tiles/cherries.png");
+}
+.a3{
+	background-image: url("res/tiles/club.png");
+}
+.a4{
+	background-image: url("res/tiles/diamond.png");
+}
+.a5{
+	background-image: url("res/tiles/heart.png");
+}
+.a6{
+	background-image: url("res/tiles/spade.png");
+}
+.a7{
+	background-image: url("res/tiles/joker.png");
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- particles.js container -->
+    <div id="particles-js"></div>
+
+    <div class="container">
+        
+        <div class="container" id="initialContent">
+            <h1 class="font-weight-bold">Jule's Meds</h1>
+            <p class="question">Did you take your medication today?</p>
+                <button type="submit" class="btn btn-submit" onclick="changeContent()">Yes</button>
+        </div>
+    
+        <div class="container" id="newContent" style="display:none;">
+            <section id="status">WELCOME!</section>
+            <section class="row justify-content-center" id="Slots">
+                <div id="slot1" class="a1"></div>
+                <div id="slot2" class="a1"></div>
+                <div id="slot3" class="a1"></div>
+            </section>
+            <section onclick="doSlot()" id="Gira">TAKE A SPIN!</section>
+            <section id="options">
+                <img src="res/icons/audioOn.png" id="audio" class="option" onclick="toggleAudio()" />
+            </section>
+            <form method="post" action="https://docs.google.com/forms/d/e/1FAIpQLSfmR99cUw1VO03jsv5fUoAyTFYFCGVnKNm93USgeZ_CQ3anKQ/formResponse"
+                id="medForm">
+                <input type="hidden" name="entry.1208840212" value="True" />
+                <input type="hidden" id="PrizeText" name="entry.219194270" value="Prize Test" />
+            </form>
+        </div>
+        
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-M6dvQ4qFVx9Z+Kx4OX6lZB0Pwv46MlNZ/AO8tBmdt+8zOmOr0c3D0HE49fRq3ipZ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyI+5T9P1BqD6Y4aZl3m9nxvoGgF5RKO"
+        crossorigin="anonymous"></script>
+
+    <!-- particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+
+
+
+    function changeContent() {
+            // Your form submission logic here
+            // After form submission, hide initial content and show new content
+            document.getElementById("initialContent").style.display = "none";
+            document.getElementById("newContent").style.display = "block";
+        }
+
+        // particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#ffffff' // White color
+                },
+                shape: {
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    },
+                    polygon: {
+                        nb_sides: 5
+                    },
+                    image: {
+                        src: 'img/github.svg',
+                        width: 100,
+                        height: 100
+                    }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: false,
+                        speed: 40,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#e91e63', // Pink color
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 400,
+                        size: 40,
+                        duration: 2,
+                        opacity: 8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+
+    <script>
+        
+var doing = false;
+var spin = [new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3"),new Audio("res/sounds/spin.mp3")];
+var coin = [new Audio("res/sounds/coin.mp3"),new Audio("res/sounds/coin.mp3"),new Audio("res/sounds/coin.mp3")]
+var win = new Audio("res/sounds/win.mp3");
+var lose = new Audio("res/sounds/lose.mp3");
+var audio = false;
+let status = document.getElementById("status")
+var info = true;
+var prize ="None";
+
+WinData = {
+    scale: 10000,
+    prizes:[
+        {text:"Epic High Five",prob:0.5},
+        {text:"Ice Cream !!!", prob:0.03},
+        {text:"Scandinavian Swimmers",prob:0.13},
+        {text:"Butchers Son",prob:0.02},
+        {text:"Movie Night Your Choice",prob:0.25},
+        {text:"1 Mango", prob:0.07}
+
+    ]
+}; 
+
+function submitForm(){
+            var form = document.getElementById("medForm");
+            var prizeText = document.getElementById("PrizeText");
+            prizeText.value = prize; 
+            form.submit();
+        }
+
+function generateRandomPrize() {
+    // Create an array to store entries
+    const entries = [];
+    // Generate entries based on the scale and probability
+    WinData.prizes.forEach((prize) => {
+        const numEntries = Math.floor(WinData.scale * prize.prob);
+        entries.push(...Array(numEntries).fill(prize.text));
+    });
+
+    // Select a random entry from the array
+    const randomIndex = Math.floor(Math.random() * entries.length);
+    const selectedPrize = entries[randomIndex];
+
+    return selectedPrize;
+}
+
+function doSlot(){
+	if (doing){return null;}
+	doing = true;
+	var winChance = 0.1;
+	var win = Math.random() < winChance; 
+	var numChanges = randomInt(1,4)*7
+	var numeberSlot1 = numChanges+randomInt(1,7)
+	var numeberSlot2 = numChanges+2*7+randomInt(1,7)
+	var numeberSlot3 = numChanges+4*7+randomInt(1,7)
+
+
+	var i1 = 0;
+	var i2 = 0;
+	var i3 = 0;
+	var sound = 0
+	status.innerHTML = "SPINNING"
+	slot1 = setInterval(spin1, 50);
+	slot2 = setInterval(spin2, 50);
+	slot3 = setInterval(spin3, 50);
+	function spin1(){
+		i1++;
+		if (i1>=numeberSlot1){
+			coin[0].play()
+			clearInterval(slot1);
+			return null;
+		}
+		slotTile = document.getElementById("slot1");
+		if (slotTile.className=="a7"){
+			slotTile.className = "a0";
+		}
+		slotTile.className = "a"+(parseInt(slotTile.className.substring(1))+1)
+	}
+	function spin2(){
+		i2++;
+		if (i2>=numeberSlot2){
+			coin[1].play()
+			clearInterval(slot2);
+			return null;
+		}
+		slotTile = document.getElementById("slot2");
+		if (slotTile.className=="a7"){
+			slotTile.className = "a0";
+		}
+		slotTile.className = "a"+(parseInt(slotTile.className.substring(1))+1)
+	}
+	function spin3(){
+		i3++;
+		if (i3>=numeberSlot3){
+			coin[2].play()
+			clearInterval(slot3);
+			testWin();
+			return null;
+		}
+		slotTile = document.getElementById("slot3");
+		if (slotTile.className=="a7"){
+			slotTile.className = "a0";
+		}
+		sound++;
+		if (sound==spin.length){
+			sound=0;
+		}
+		spin[sound].play();
+		slotTile.className = "a"+(parseInt(slotTile.className.substring(1))+1)
+	}
+}
+
+function testWin(){
+	var slot1 = document.getElementById("slot1").className
+	var slot2 = document.getElementById("slot2").className
+	var slot3 = document.getElementById("slot3").className
+
+	if (((slot1 == slot2 && slot2 == slot3) ||
+		(slot1 == slot2 && slot3 == "a7") ||
+		(slot1 == slot3 && slot2 == "a7") ||
+		(slot2 == slot3 && slot1 == "a7") ||
+		(slot1 == slot2 && slot1 == "a7") ||
+		(slot1 == slot3 && slot1 == "a7") ||
+		(slot2 == slot3 && slot2 == "a7") ) && !(slot1 == slot2 && slot2 == slot3 && slot1=="a7")){
+
+        prize = generateRandomPrize();
+		status.innerHTML = "YOU WIN! " + prize;
+		win.play();
+	}else{
+		status.innerHTML = "YOU LOSE!"
+		lose.play();
+	}
+    //submit form in 5 seconds 
+    setTimeout(function() {
+        submitForm();
+    }, 2500);
+	doing = false;
+}
+
+function toggleAudio(){
+	if (!audio){
+		audio = !audio;
+		for (var x of spin){
+			x.volume = 0.5;
+		}
+		for (var x of coin){
+			x.volume = 0.5;
+		}
+		win.volume = 1.0;
+		lose.volume = 1.0;
+	}else{
+		audio = !audio;
+		for (var x of spin){
+			x.volume = 0;
+		}
+		for (var x of coin){
+			x.volume = 0;
+		}
+		win.volume = 0;
+		lose.volume = 0;
+	}
+	document.getElementById("audio").src = "res/icons/audio"+(audio?"On":"Off")+".png";
+}
+
+function randomInt(min, max){
+	return Math.floor((Math.random() * (max-min+1)) + min);
+}
+    </script>
+
+</body>
+
+</html>
