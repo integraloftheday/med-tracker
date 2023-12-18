@@ -11,10 +11,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="index.css">
-
+    
     <script src="slots.js"></script>
-    <!-- particles.js CSS -->
-
 </head>
 
 <body>
@@ -38,37 +36,13 @@
         </div>
     </nav>
     <div id="particles-js"></div>
+
     <div class="container">
-
-        <div class="container" id="initialContent">
-            <h1 class="font-weight-bold">Jules' Meds</h1>
-            <p class="question">Did you take your medication today?</p>
-
-            <button type="submit" class="btn btn-submit" onclick="changeContent()">Yes</button>
-        </div>
-
-        <div class="container" id="newContent" style="display:none;">
-            <section id="status">WELCOME!</section>
-            <section class="row justify-content-center" id="Slots">
-                <div id="slot1" class="a1"></div>
-                <div id="slot2" class="a1"></div>
-                <div id="slot3" class="a1"></div>
-            </section>
-            <section onclick="doSlot()" id="Gira">TAKE A SPIN!</section>
-            <section id="options">
-                <img src="res/icons/audioOn.png" id="audio" class="option" onclick="toggleAudio()" />
-            </section>
-            <form method="post"
-                action="https://docs.google.com/forms/d/e/1FAIpQLSfmR99cUw1VO03jsv5fUoAyTFYFCGVnKNm93USgeZ_CQ3anKQ/formResponse"
-                id="medForm">
-                <input type="hidden" name="entry.1208840212" value="True" />
-                <input type="hidden" id="PrizeText" name="entry.219194270" value="Prize Test" />
-            </form>
-        </div>
-
-
+        
+        <h1 id="streakCounter" class="font-weight-bold">Streaks</h1>
+        <div id="BarChart" class="text-center"></div>
+        <div id="BoxChart" class="text-center"></div>
     </div>
-
     <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -76,8 +50,12 @@
 
     <!-- particles.js library -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-    <script src="index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="track.js"></script>
 </body>
 
 </html>
