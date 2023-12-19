@@ -200,7 +200,7 @@ function calculateStreak(data) {
         if (+item.timestamp === +currentDate) {
             streak++;
             // Subtract one day from currentDate
-            currentDate.setDate(currentDate.getDate());
+            currentDate.setDate(currentDate.getDate()-1);
         } else if (+item.timestamp < +currentDate) {
             break;
         }
